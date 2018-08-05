@@ -3,12 +3,12 @@ import java.util.BitSet;
 
 import com.google.common.base.Preconditions;
 
-final class SolutionBoard {
+final class Board {
 	private final int size, lastIndex;
 	private final int[] colPosition;
 	private final BitSet colOccupied, diagonalOccupied, counterDiagonalOccupied;
 
-	SolutionBoard(int size) {
+	Board(int size) {
 		Preconditions.checkArgument(size >= 0);
 		Preconditions.checkArgument(2 * (long) size < Integer.MAX_VALUE);
 		this.size = size;
@@ -72,21 +72,13 @@ final class SolutionBoard {
 		return size;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder(size * (size + 1));
-		for (int row = 0; row < size; ++row) {
-			for (int col = 0; col < size; ++col) {
-				builder.append(col == colPosition[row] ? 'X' : '.');
-			}
-			builder.append('\n');
-		}
-		return builder.toString();
+	boolean hasQueenInRow(int row) {
+		return colPosition[row] >= 0;
 	}
-
+	
 	int getQueenCol(int row) {
+		assert hasQueenInRow(row);
 		int col = colPosition[row];
-		assert col >= 0;
 		return col;
 	}
 
@@ -108,5 +100,32 @@ final class SolutionBoard {
 			}
 		}
 		return false;
+	}
+
+	final Solution getSolution() {
+		return new Solution(this);
+	}
+
+	final static class Solution {
+		private final int size;
+		private final int[] colPosition;
+
+		private Solution(Board board) {
+			this.size = board.size;
+			this.colPosition = new int[size];
+			System.arraycopy(board.colPosition, 0, colPosition, 0, size);
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder(size * (size + 1));
+			for (int row = 0; row < size; ++row) {
+				for (int col = 0; col < size; ++col) {
+					builder.append(col == colPosition[row] ? 'X' : '.');
+				}
+				builder.append('\n');
+			}
+			return builder.toString();
+		}
 	}
 }

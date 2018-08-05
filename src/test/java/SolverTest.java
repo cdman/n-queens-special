@@ -36,16 +36,9 @@ public final class SolverTest {
 	private int getSolutionCount(int size) {
 		Solver solver = new Solver(size);
 		int solutions = 0;
-		loop: while (true) {
-			switch (solver.doStep()) {
-			case OK:
-				break;
-			case SOLUTION:
-				solutions += 1;
-				break;
-			case NO_MORE:
-				break loop;
-			}
+		while (solver.hasNext()) {
+			solutions += 1;
+			solver.next();
 		}
 		return solutions;
 	}
