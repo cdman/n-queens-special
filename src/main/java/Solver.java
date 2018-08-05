@@ -45,7 +45,7 @@ final class Solver {
 	}
 
 	private boolean isSolution() {
-		return currentRow == board.size();
+		return currentRow == board.size() && !board.hasColinearQueens();
 	}
 
 	@Override

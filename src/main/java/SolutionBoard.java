@@ -10,7 +10,7 @@ final class SolutionBoard {
 
 	SolutionBoard(int size) {
 		Preconditions.checkArgument(size >= 0);
-		Preconditions.checkArgument(2 * (long)size < Integer.MAX_VALUE);
+		Preconditions.checkArgument(2 * (long) size < Integer.MAX_VALUE);
 		this.size = size;
 		this.lastIndex = size - 1;
 		this.colPosition = new int[size];
@@ -88,5 +88,25 @@ final class SolutionBoard {
 		int col = colPosition[row];
 		assert col >= 0;
 		return col;
+	}
+
+	boolean hasColinearQueens() {
+		for (int row1 = 0; row1 < size - 1; ++row1) {
+			for (int row2 = row1 + 1; row2 < size; ++row2) {
+				int deltaRow = row2 - row1;
+				int deltaCol = getQueenCol(row2) - getQueenCol(row1);
+
+				int row = row2 + deltaRow, col = getQueenCol(row2) + deltaCol;
+				while (row < size && col >= 0 && col < size) {
+					if (getQueenCol(row) == col) {
+						// the queens from row1, row2 and row are on the same line
+						return true;
+					}
+					row += deltaRow;
+					col += deltaCol;
+				}
+			}
+		}
+		return false;
 	}
 }

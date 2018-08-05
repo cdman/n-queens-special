@@ -55,4 +55,14 @@ public final class SolutionBoardTest {
 		board.removeQueen(0);
 		assertTrue(board.addQueen(1, 1));
 	}
+
+	@Test
+	public void testHasColinearQueens() {
+		SolutionBoard board = new SolutionBoard(8);
+		assertTrue(board.addQueen(0, 1));
+		assertTrue(board.addQueen(1, 3));
+		assertTrue(board.addQueen(2, 5));
+		assertTrue(board.hasColinearQueens());
+	}
+
 }

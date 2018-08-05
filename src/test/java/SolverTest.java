@@ -57,6 +57,6 @@ public final class SolverTest {
 		assertEquals(0, getSolutionCount(2));
 		assertEquals(0, getSolutionCount(3));
 		assertEquals(2, getSolutionCount(4));
-		assertEquals(10, getSolutionCount(5));
+		assertEquals(0, getSolutionCount(5));
 	}
 }
